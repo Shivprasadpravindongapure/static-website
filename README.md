@@ -2,6 +2,16 @@
 
 A professional static website built with React, designed specifically for cloud computing practical exercises and AWS S3 deployment.
 
+## 🌐 **Live Demo**
+**🚀 Your website is live at:** https://main.d3pmmmgqy6aoej.amplifyapp.com/
+
+## ✅ **Deployment Status**
+- **Status**: ✅ Successfully Deployed
+- **Platform**: AWS Amplify
+- **Build Duration**: 1 minute 54 seconds
+- **Last Deployed**: January 31, 2026 at 11:52 AM
+- **Repository**: Shivprasadpravindongapure/static-website:main
+
 ## 🚀 Features
 
 - **Modern React Architecture**: Built with React 18 and modern hooks
@@ -79,67 +89,92 @@ npm run build
 
 The build files will be created in the `build/` directory, ready for AWS S3 deployment.
 
-## ☁️ AWS Deployment Guide
+## ☁️ AWS Deployment Details
 
-### Step 1: Create S3 Bucket
+### ✅ **Successful AWS Amplify Deployment**
 
+Your static website has been successfully deployed to AWS Amplify with the following configuration:
+
+#### 📋 **Deployment Configuration**
+- **Service**: AWS Amplify (Static Website Hosting)
+- **Framework**: React (Auto-detected)
+- **Build Command**: `npm run build`
+- **Output Directory**: `build`
+- **Node Version**: 18.x (Latest LTS)
+- **Platform**: Linux/AMD64
+
+#### 🚀 **Deployment Process**
+1. **Repository**: Connected to GitHub repository
+2. **Build**: Automatic build triggered on code changes
+3. **Dependencies**: `npm ci --cache .npm --prefer-offline`
+4. **Build Output**: Optimized React production build
+5. **Deployment**: Automatic deployment to global CDN
+
+#### 🌍 **Live URL**
+**https://main.d3pmmmgqy6aoej.amplifyapp.com/**
+
+#### ⚡ **Performance Features**
+- **Global CDN**: Content delivered from edge locations worldwide
+- **HTTPS**: Automatic SSL certificate included
+- **Auto-scaling**: Handles unlimited traffic automatically
+- **Zero Downtime**: Seamless deployments with instant rollbacks
+
+### 🛠️ **Alternative AWS Deployment Methods**
+
+#### Method 1: AWS S3 + CloudFront (Manual)
 ```bash
+# 1. Create S3 bucket
 aws s3 mb s3://your-website-name
-```
 
-### Step 2: Enable Static Website Hosting
+# 2. Build your React app
+npm run build
 
-1. Go to AWS S3 Console
-2. Select your bucket
-3. Properties → Static website hosting
-4. Enable static website hosting
-5. Set index document: `index.html`
-6. Set error document: `index.html`
-
-### Step 3: Upload Files
-
-```bash
+# 3. Upload to S3
 aws s3 sync build/ s3://your-website-name --delete
+
+# 4. Set bucket policy for public access
+aws s3api put-bucket-policy --bucket your-website-name --policy file://policy.json
+
+# 5. Create CloudFront distribution
+aws cloudfront create-distribution --distribution-config file://cloudfront-config.json
 ```
 
-### Step 4: Set Bucket Policy
+#### Method 2: AWS Amplify (Recommended - Already Used)
+- ✅ **Automatic deployments** on git push
+- ✅ **Custom domains** supported
+- ✅ **Feature branches** for testing
+- ✅ **Pull request previews**
+- ✅ **Environment variables** management
+- ✅ **Build monitoring** and logs
 
-Create a file named `policy.json`:
+#### Method 3: AWS App Runner
+```yaml
+# apprunner.yaml
+version: 1.0
+runtime: docker
+build:
+  commands:
+    build:
+      - npm install
+      - npm run build
+run:
+  command: npm install -g serve && serve -s build -p 8080
+```
+
+### 🔧 **AWS Amplify Configuration Used**
 
 ```json
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "PublicReadGetObject",
-            "Effect": "Allow",
-            "Principal": "*",
-            "Action": "s3:GetObject",
-            "Resource": "arn:aws:s3:::your-website-name/*"
-        }
-    ]
+  "app": {
+    "name": "static-website",
+    "framework": "React",
+    "buildSettings": {
+      "buildCommand": "npm run build",
+      "outputDirectory": "build"
+    }
+  }
 }
 ```
-
-Apply the policy:
-
-```bash
-aws s3api put-bucket-policy --bucket your-website-name --policy file://policy.json
-```
-
-### Step 5: Configure CloudFront (Optional but Recommended)
-
-1. Go to AWS CloudFront Console
-2. Create Distribution
-3. Origin: Your S3 bucket
-4. Viewer Protocol Policy: Redirect HTTP to HTTPS
-5. Default Root Object: `index.html`
-
-### Step 6: Custom Domain (Optional)
-
-1. Go to AWS Route 53 Console
-2. Create Hosted Zone
-3. Add A record with alias to CloudFront distribution
 
 ## 📱 Sections
 
